@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 is_prod = os.getenv("FLASK_ENV") == "production"
 frontend_url = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
-origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+origins = [r"https://.*\.vercel\.app", "http://localhost:5173", "http://127.0.0.1:5173"]
 if frontend_url and frontend_url not in origins:
     origins.append(frontend_url)
 
