@@ -35,6 +35,51 @@ function getDailyTip() {
   return randomPick;
 }
 
+function compressImage(file, maxDimension = 1200, quality = 0.85) {
+  return new Promise((resolve) => {
+    if (!file || !file.type.startsWith("image/")) {
+      return resolve(file);
+    }
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.src = url;
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) return resolve(file);
+          const compressed = new File([blob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
+            type: "image/jpeg",
+            lastModified: Date.now(),
+          });
+          resolve(compressed);
+        },
+        "image/jpeg",
+        quality
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(file);
+    };
+  });
+}
+
 function Home() {
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -59,10 +104,12 @@ function Home() {
     setLoading(true);
     setError("");
 
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
+      const fileToUpload = await compressImage(file);
+
+      const formData = new FormData();
+      formData.append("file", fileToUpload);
+
       const response = await fetch(`${API_BASE}/api/dashboard/upload`, {
         method: "POST",
         credentials: "include",
@@ -80,7 +127,8 @@ function Home() {
       } else {
         setAnalysisResult(data);
       }
-    } catch {
+    } catch (err) {
+      console.error("Upload error:", err);
       setError("Cannot connect to backend server. Please verify Flask is running.");
     } finally {
       setLoading(false);
