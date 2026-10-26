@@ -1,0 +1,400 @@
+.routine-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header & Toggle */
+.routine-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.routine-header-row h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f3a2e;
+}
+
+/* AM / PM Toggle Switch */
+.period-toggle-shell {
+  display: flex;
+  background: #e5ebe6;
+  border-radius: 30px;
+  padding: 4px;
+  gap: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #6b7a71;
+  background: transparent;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-btn.active-am {
+  background: #ffb830;
+  color: #1f3a2e;
+  box-shadow: 0 4px 12px rgba(255, 184, 48, 0.35);
+}
+
+.toggle-btn.active-pm {
+  background: #2b3a55;
+  color: #e0e6ed;
+  box-shadow: 0 4px 12px rgba(43, 58, 85, 0.45);
+}
+
+/* Main Theme Card */
+.routine-card-shell {
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* AM Warm Sun Theme */
+.routine-card-shell.theme-am {
+  background: linear-gradient(135deg, #fffcf5 0%, #fff6e5 100%);
+  border: 1px solid #ffe0b3;
+  color: #2c3e35;
+}
+
+/* PM Cool Moon Theme */
+.routine-card-shell.theme-pm {
+  background: linear-gradient(135deg, #182232 0%, #0f1724 100%);
+  border: 1px solid #2d3b52;
+  color: #f0f4f8;
+}
+
+/* Animation Banner Graphic */
+.theme-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: border-color 0.5s ease;
+}
+
+.theme-pm .theme-banner {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.banner-info h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  transition: color 0.5s ease;
+}
+
+.theme-am .banner-info h2 {
+  color: #1f3a2e;
+}
+
+.theme-pm .banner-info h2 {
+  color: #ffffff;
+}
+
+.banner-subtitle {
+  font-size: 12px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Celestial Graphic Animations */
+.celestial-graphic {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+}
+
+/* Sun Animation */
+.sun-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffca36 0%, #ff9500 100%);
+  box-shadow: 0 0 24px rgba(255, 184, 48, 0.6);
+  animation: pulse-sun 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-sun {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 16px rgba(255, 184, 48, 0.4);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 28px rgba(255, 184, 48, 0.8);
+  }
+}
+
+/* Moon & Stars Animation */
+.moon-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+
+.moon-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  box-shadow: inset -9px -4px 0 0 #f4ebc1;
+  filter: drop-shadow(0 0 10px rgba(244, 235, 193, 0.5));
+}
+
+.star {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: twinkle 1.8s infinite ease-in-out alternate;
+}
+
+.star-1 { width: 3px; height: 3px; top: 4px; left: 2px; animation-delay: 0s; }
+.star-2 { width: 4px; height: 4px; top: 2px; right: 4px; animation-delay: 0.6s; }
+.star-3 { width: 2px; height: 2px; bottom: 6px; right: 8px; animation-delay: 1.2s; }
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Progress Tracker Bar */
+.progress-box {
+  margin-bottom: 24px;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.progress-track-shell {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+.theme-am .progress-track-shell {
+  background: #ffe6b3;
+}
+
+.theme-pm .progress-track-shell {
+  background: #233145;
+}
+
+.progress-fill-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease, background 0.5s ease;
+}
+
+.theme-am .progress-fill-bar {
+  background: linear-gradient(90deg, #ffb830 0%, #e2734a 100%);
+}
+
+.theme-pm .progress-fill-bar {
+  background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 100%);
+}
+
+/* Routine Steps Checklist */
+.steps-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.theme-am .step-card {
+  background: #ffffff;
+  border: 1px solid #ffe8c2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.theme-pm .step-card {
+  background: #1e2c40;
+  border: 1px solid #2d3e57;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.step-card.applied {
+  opacity: 0.7;
+}
+
+.step-number-badge {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.5s ease;
+}
+
+.theme-am .step-number-badge {
+  background: #fff0d6;
+  color: #b8791a;
+}
+
+.theme-pm .step-number-badge {
+  background: #2b3d56;
+  color: #93c5fd;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-product-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.theme-am .step-product-name {
+  color: #1f3a2e;
+}
+
+.theme-pm .step-product-name {
+  color: #ffffff;
+}
+
+.step-instruction {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* Checkbox Toggle */
+.step-checkbox-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-am .step-checkbox-btn {
+  border-color: #ffd899;
+  background: #fff8eb;
+  color: #b8791a;
+}
+
+.theme-am .step-checkbox-btn.checked {
+  background: #2f9e5e;
+  border-color: #2f9e5e;
+  color: #ffffff;
+}
+
+.theme-pm .step-checkbox-btn {
+  border-color: #3b4d68;
+  background: #26364d;
+  color: #93c5fd;
+}
+
+.theme-pm .step-checkbox-btn.checked {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #ffffff;
+}
+
+/* Action Footer */
+.routine-actions-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.generate-routine-btn {
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-am .generate-routine-btn {
+  background: #1f3a2e;
+  color: #ffffff;
+}
+
+.theme-am .generate-routine-btn:hover {
+  background: #16291f;
+}
+
+.theme-pm .generate-routine-btn {
+  background: #6366f1;
+  color: #ffffff;
+}
+
+.theme-pm .generate-routine-btn:hover {
+  background: #4f46e5;
+}
+
+.generate-routine-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Empty & Loading States */
+.empty-routine-box {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-routine-box h3 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.empty-routine-box p {
+  font-size: 13px;
+  opacity: 0.8;
+  margin: 0 0 20px;
+}
